@@ -1,70 +1,189 @@
-# Getting Started with Create React App
+# Transportation Management System (TMS) – Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains the **frontend application** for a **Transportation Management System (TMS)** Proof of Concept (PoC).
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Project Overview
 
-### `npm start`
+### Goal
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The purpose of this project is to demonstrate:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Secure frontend–backend integration using **GraphQL**
+- Clear **role-based behavior** (Admin vs Employee)
+- **Scalable UI composition** suitable for enterprise systems
+- Thoughtful **separation of concerns**
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧩 System Context
 
-### `npm run build`
+React Frontend
+|
+| HTTP Basic Auth (Base64)
+|
+Spring Boot GraphQL Backend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Authentication and authorization are **enforced server-side**  
+- Frontend remains **stateless** and **role-aware**  
+- Backend is the **single source of truth**
 
-### `npm run eject`
+**Backend Repository:**  
+👉 [https://github.com/harshitawhere/tms-backend](https://github.com/harshitawhere/tms-backend)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🔐 Authentication & Access Control
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Supported Roles
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| Role      | Username | Password |
+|------------|-----------|-----------|
+| Admin      | admin     | admin     |
+| Employee   | emp       | emp       |
 
-## Learn More
+### Authentication Mechanism
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **HTTP Basic Authentication**
+- Credentials encoded using **Base64**
+- Sent via `Authorization` header on every GraphQL request
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Example:**
 
-### Code Splitting
+Authorization: Basic base64(username:password)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+Invalid credentials are rejected by the backend and prevent access to all application data.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 👥 Role-Based Behavior
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Admin
+- Create shipments (**GraphQL mutation**)
+- Read shipment data
+- Update shipments
+- Delete shipments
 
-### Advanced Configuration
+### Employee
+- Read shipment list
+- View shipment details
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+> Authorization is handled entirely by backend security rules.  
+> The frontend adapts UI behavior but does not enforce security.
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🔁 Application Flow
 
-### `npm run build` fails to minify
+### Admin Login
+1. Admin authenticates  
+2. Adds, updates, or deletes shipment records  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Employee Login
+1. Employee authenticates  
+2. Views shipment data created by admin  
+
+### Unauthorized Users
+- Cannot access shipment data  
+
+---
+
+## 🖥️ UI Capabilities
+
+### Navigation
+- Hamburger menu with single-level submenus  
+- Horizontal navigation for top-level actions  
+
+### Data Views
+
+#### Grid View
+- Tabular representation  
+- Optimized for scanning and comparison  
+
+#### Tile View
+- Card-based layout showing essential shipment attributes  
+- Includes action menu (edit/delete/flag)
+
+#### Detail View
+- Click a shipment to view full details  
+- Shown as expanded view or overlay  
+- Supports navigation back to list  
+
+---
+
+## 🔗 Data Integration
+
+- All data fetched via **GraphQL**
+- Pagination, filtering, and sorting supported by backend
+- Frontend remains **thin and declarative**
+
+---
+
+## ⚙️ Technology Stack
+
+| Layer | Technology |
+|--------|-------------|
+| **UI** | React |
+| **Data** | Apollo Client (GraphQL) |
+| **Styling** | CSS / Tailwind CSS |
+| **Auth** | HTTP Basic Auth |
+| **Backend** | Spring Boot GraphQL |
+
+---
+
+## 🧰 Local Setup
+
+### Prerequisites
+- Node.js (v16+)
+- npm
+- Running backend service
+
+### Steps
+
+```
+git clone https://github.com/harshitawhere/tms-frontend.git
+cd tms-frontend
+npm install --legacy-peer-deps
+npm start
+
+```
+
+
+> Application runs at:  
+> [**http://localhost:3000**](http://localhost:3000)
+
+---
+
+## 🎨 Design Rationale
+
+- **Backend-first security:** Prevents trust leakage to client  
+- **Stateless frontend:** Easier to scale and reason about  
+- **POC-appropriate auth:** Basic Auth chosen for clarity over complexity  
+- **Composable UI:** Grid/tile views designed for reuse  
+- **Future-ready:** Architecture supports JWT, OAuth, and richer UI controls  
+
+---
+
+## 📈 Current State
+
+- Authentication integrated  
+- Admin CRUD workflows functional  
+- Employee read-only access enforced  
+- Multiple presentation views implemented  
+- Clean separation between UI and domain logic  
+
+---
+
+## 🔮 Future Improvements
+
+- Token-based authentication (JWT)  
+- UI-level pagination controls  
+- Enhanced error and loading states  
+- Fine-grained role awareness in UI  
+- Production-grade auth flows  
+
+
